@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=user
+comment1.params=namadepan\ namabelakang\ id_ktp\ tgl_lahir\ username\ pin
+comment1.target=user(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment2.params=
+comment2.target=user()
+comment3.params=
+comment3.target=void\ adduser()
+comment4.params=un
+comment4.target=void\ setUsername(java.lang.String)
+comment5.params=
+comment5.target=java.lang.String\ getUsername()
+comment6.params=norek
+comment6.target=void\ setNo_rek(java.lang.String)
+comment7.params=
+comment7.target=java.lang.String\ getNo_rek()
+numComments=8

@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=ATM
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment2.params=
+comment2.target=void\ login()
+comment3.params=
+comment3.target=void\ register()
+numComments=4

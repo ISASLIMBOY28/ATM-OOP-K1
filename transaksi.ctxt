@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=transaksi
+comment1.params=
+comment1.target=java.lang.String\ getNo_rek()
+comment2.params=
+comment2.target=void\ TransferUang()
+comment3.params=
+comment3.target=void\ TarikTunai()
+comment4.params=
+comment4.target=void\ addDeposito()
+comment5.params=
+comment5.target=void\ addTabungan()
+numComments=6
