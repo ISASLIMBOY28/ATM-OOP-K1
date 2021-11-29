@@ -2,14 +2,9 @@ import java.util.*;
 import java.sql.*;
 import java.io.IOException;
 public class transaksi extends user{
-    float jumlah, saldo_tabungan;
-    String no_rek_tujuan, no_rek_tujuan_db;
+    private float jumlah, saldo_tabungan;
+    private String no_rek_tujuan, no_rek_tujuan_db;
     Scanner sc = new Scanner(System.in);
-    
-    @Override
-    public String getNo_rek() {
-        return super.no_rek;
-    }
     
     void TransferUang(){
        try{ 

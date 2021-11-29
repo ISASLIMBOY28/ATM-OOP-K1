@@ -1,11 +1,7 @@
 #BlueJ class context
 comment0.target=rekening
 comment1.params=
-comment1.target=java.lang.String\ getUsername()
+comment1.target=void\ getMutasi()
 comment2.params=
-comment2.target=java.lang.String\ getNo_rek()
-comment3.params=
-comment3.target=void\ getMutasi()
-comment4.params=
-comment4.target=void\ getSaldo()
-numComments=5
+comment2.target=void\ getSaldo()
+numComments=3

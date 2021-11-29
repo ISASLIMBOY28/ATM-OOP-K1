@@ -3,16 +3,6 @@ import java.sql.*;
 import java.io.IOException;
 public class rekening extends user{
     
-    @Override
-    public String getUsername() {
-        return super.username;
-    }
-    
-    @Override
-    public String getNo_rek() {
-        return super.no_rek;
-    }
-    
     public void getMutasi(){
     try{
         Class.forName("org.sqlite.JDBC");

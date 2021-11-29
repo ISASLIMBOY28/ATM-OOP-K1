@@ -29,28 +29,28 @@ public class ATM{
         try{
     System.out.println("=======================================================");
     System.out.print("Username : ");
-    u.username=sc.next();
+    String username=sc.next();
     System.out.print("Pin : ");
-    u.pin=sc.next();
+    String pin=sc.next();
     Class.forName("org.sqlite.JDBC");
-    Connection k = DriverManager.getConnection("jdbc:sqlite:D:/Programming/OOP ATM - Kelompok 1/atm.db");
+    Connection k = DriverManager.getConnection("jdbc:sqlite:D:/Programming/OOP ATM/atm.db");
     Statement stat = k.createStatement();
-    ResultSet set = stat.executeQuery("select * from user where username='"+u.username+"' and pin='"+u.pin+"';");
+    ResultSet set = stat.executeQuery("select * from user where username='"+username+"' and pin='"+pin+"';");
      while (set.next()){
         String usernamedb=set.getString("username");
         String pindb=set.getString("pin");
-        u.namadepan=set.getString("namadepan");
-        u.namabelakang=set.getString("namabelakang");
-    if (u.username.equals(usernamedb) && u.pin.equals(pindb)){
+        String namad=set.getString("namadepan");
+        String namab=set.getString("namabelakang");
+    if (username.equals(usernamedb) && pin.equals(pindb)){
     do {
         System.out.println("=======================================================");
-        u.setUsername(u.username);
-        stat.executeQuery("select no_rek from rekening where username='"+u.username+"';");
+        u.setUsername(username);
+        stat.executeQuery("select no_rek from rekening where username='"+username+"';");
         while(set.next()){
-            u.no_rek=set.getString("no_rek");
-            u.setNo_rek(u.no_rek);
+            String no_rek=set.getString("no_rek");
+            u.setNo_rek(no_rek);
         }
-        System.out.println("Selamat datang "+u.namadepan+" "+u.namabelakang+"!");
+        System.out.println("Selamat datang "+namad+" "+namab+"!");
             System.out.println("Pilihan menu Bank OOP Memoria");
             System.out.println("  1) Cek Saldo Deposit dan Rekening");
             System.out.println("  2) Mutasi rekening");
@@ -97,22 +97,28 @@ public class ATM{
     System.out.println("Harap mempersiapkan berkas yang akan diinput nomornya");
     System.out.println("=======================================================");
     System.out.print("Nama Depan : ");
-    u.namadepan = sc.nextLine();
+    String a = sc.next();
+    u.setNamadepan(a);
     System.out.print("Nama Belakang : ");
-    u.namabelakang = sc.next();
+    String b = sc.next();
+    u.setNamabelakang(b);
     System.out.print("No. KTP : ");
-    u.id_ktp = sc.next();
+    String c = sc.next();
+    u.setId_ktp(c);
     System.out.print("Tanggal Lahir (YYYY-MM-DD) : ");
-    u.tgl_lahir = sc.next();
+    String d = sc.next();
+    u.setTgl_lahir(d);
     System.out.print("Username : ");
-    u.username = sc.next();
+    String e = sc.next();
+    u.setUsername(e);
     System.out.print("Pin : "); 
-    u.pin = sc.next();
+    String f = sc.next();
+    u.setPin(f);
     acak = r.nextInt(99999999);
-    u.no_rek = Integer.toString(acak);
+    u.setNo_rek(Integer.toString(acak));
     u.adduser();
-    System.out.println(u.namadepan+", anda sudah terdaftar di Bank OOP Memoria");
-    System.out.println("Akun anda bernomor rekening "+u.no_rek);
+    System.out.println(u.getNamadepan()+", anda sudah terdaftar di Bank OOP Memoria");
+    System.out.println("Akun anda bernomor rekening "+u.getNo_rek());
     }
     
 }
