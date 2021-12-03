@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=bank
+comment1.params=
+comment1.target=void\ adduser()
+comment2.params=
+comment2.target=java.lang.String\ getNamadepan()
+comment3.params=
+comment3.target=java.lang.String\ getNamabelakang()
+comment4.params=
+comment4.target=java.lang.String\ getTgl_lahir()
+comment5.params=
+comment5.target=java.lang.String\ getUsername()
+comment6.params=
+comment6.target=java.lang.String\ getId_ktp()
+comment7.params=
+comment7.target=java.lang.String\ getPin()
+numComments=8

@@ -1,7 +1,7 @@
 import java.sql.*;
 import java.io.*;
 import java.util.*;
-public class user{
+public class user implements bank{
     private static String namadepan, namabelakang, id_ktp, tgl_lahir, username,no_rek, pin;
    
    public user(String namadepan, String namabelakang, String id_ktp, String tgl_lahir, String username, String pin){
