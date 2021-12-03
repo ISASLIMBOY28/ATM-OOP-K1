@@ -1,8 +1,8 @@
 import java.sql.*;
 import java.io.*;
 import java.util.*;
-public class user{
-    private static String namadepan, namabelakang, id_ktp, tgl_lahir, username,no_rek, pin;
+public class user implements bank{
+    private static String namadepan, namabelakang, id_ktp, tgl_lahir, username,no_rek, pin, ktpdb, usernamedb;
    
    public user(String namadepan, String namabelakang, String id_ktp, String tgl_lahir, String username, String pin){
     namadepan=this.namadepan;
@@ -22,8 +22,24 @@ public class user{
        Class.forName("org.sqlite.JDBC");
     Connection k = DriverManager.getConnection("jdbc:sqlite:D:/Programming/OOP ATM/atm.db");
     Statement stat = k.createStatement();
-    stat.executeUpdate("insert into user values('"+getNamadepan()+"','"+getNamabelakang()+"','"+getId_ktp()+"','"+getTgl_lahir()+"','"+getUsername()+"','"+getPin()+"')");
+    ResultSet set = stat.executeQuery("select username from user where username='"+getUsername()+"';");
+    while (set.next()){
+    usernamedb=set.getString("username");
+    System.out.println(usernamedb);
+    }
+    stat.executeQuery("select id_ktp from user where id_ktp='"+getId_ktp()+"';");
+    while (set.next()){
+    ktpdb=set.getString("id_ktp");
+    System.out.println(ktpdb);
+    }
+    if(getUsername().equals(usernamedb) || getId_ktp().equals(ktpdb)){
+    System.out.println("Username/ID KTP Sudah terpakai!");
+    } else  {
+    stat.executeUpdate("insert into user values('"+getNamadepan()+"','"+getNamabelakang()+"','"+getTgl_lahir()+"','"+getId_ktp()+"','"+getUsername()+"','"+getPin()+"')");
     stat.executeUpdate("insert into rekening values('"+getUsername()+"',"+getNo_rek()+",0,0)");
+    System.out.println(getNamadepan()+", anda sudah terdaftar di Bank OOP Memoria");
+    System.out.println("Akun anda bernomor rekening "+getNo_rek());
+    }
 } catch (Exception e){}    
    }
    
