@@ -70,27 +70,30 @@ public class ATM{
             break;
         case 3:
             tr.TarikTunai();
+            rek.getSaldoTabungan();
             break;
         case 4:
             tr.addTabungan();
+            rek.getSaldoTabungan();
             break;
         case 5:
             tr.TransferUang();
+            rek.getSaldoTabungan();
             break;
         case 6:
             tr.addDeposito();
+            rek.getSaldoDeposit();
             break;
         case 7:
             System.out.println("Terima Kasih sudah menggunakan Bank OOP Memoria");
             System.out.println("Melakukan Log Out.....");
             break;
-        }
-    } while (pilih!=7);
+            }
+        } while (pilih!=7); 
+} else if (!username.equals(usernamedb) || !pin.equals(pindb)) {System.out.println("Username/pin salah!!!");}
 }
+}catch (Exception e){ System.out.println("Error: "+e.getMessage());}  
 }
-}catch (Exception e){System.out.println("Error: "+e.getMessage());}  
-}
-
     
     static void register(){
     System.out.println("Anda ingin melakukan registerasi");

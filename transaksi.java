@@ -10,32 +10,33 @@ public class transaksi extends user{
        try{ 
         System.out.print("Ketik Nomor Rekening Tujuan : ");
         no_rek_tujuan = sc.next();
+        System.out.println("=======================================================");
         Class.forName("org.sqlite.JDBC");
     Connection k = DriverManager.getConnection("jdbc:sqlite:D:/Programming/OOP ATM/atm.db");
     Statement stat = k.createStatement();
     ResultSet set = stat.executeQuery("select username, no_rek from rekening where no_rek="+no_rek_tujuan+";");
     while (set.next()){
-        System.out.println(set.getString("username")+"\t"+set.getString("no_rek"));
+        System.out.println("Username bernama "+set.getString("username"));
+        System.out.println("Dengan Nomor Rekening "+set.getString("no_rek"));
         no_rek_tujuan_db=set.getString("no_rek");
+    }
     if (no_rek_tujuan.equals(no_rek_tujuan_db)){
-        System.out.println("Jumlah uang : Rp. ");
+        System.out.print("Jumlah uang : Rp. ");
         jumlah=sc.nextFloat();
-        stat.executeQuery("select saldo_tabungan from rekening where no_rek='"+getUsername()+"';");
+        stat.executeQuery("select saldo_tabungan from rekening where no_rek='"+getNo_rek()+"';");
         while(set.next()){
             saldo_tabungan=set.getFloat("saldo_tabungan");
-        if(jumlah>=saldo_tabungan){
-        stat.executeUpdate("update rekening set saldo_tabungan=saldo_tabungan-"+jumlah+" where no_rek="+getNo_rek()+";");
-        stat.executeUpdate("update rekening set saldo_tabungan=saldo_tabungan+"+jumlah+" where no_rek="+no_rek_tujuan+";");
-        stat.executeUpdate("insert into transaksi values("+getNo_rek()+", 'Transfer Uang', curdate(), "+jumlah+","+no_rek_tujuan+");");
+        }
+        if(jumlah <= saldo_tabungan){
+        System.out.println("=======================================================");
+        stat.executeUpdate("update rekening set saldo_tabungan=saldo_tabungan-"+jumlah+" where no_rek='"+getNo_rek()+"';");
+        stat.executeUpdate("update rekening set saldo_tabungan=saldo_tabungan+"+jumlah+" where no_rek='"+no_rek_tujuan+"';");
+        stat.executeUpdate("insert into transaksi values('"+getNo_rek()+"', 'Transfer Uang', date('now'), "+jumlah+",'"+no_rek_tujuan+"');");
         System.out.println("Uang sebesar Rp. "+jumlah);
         System.out.println("Telah dikirimkan ke "+no_rek_tujuan);
-    }
-    else{System.out.println("Uang anda tidak cukup untuk melakukan transfer!");}
-    }
-    } else{ System.out.println("Nomor rekening tidak terdaftar/salah!");
-}
-}
-}catch (Exception e){}
+        } else{System.out.println("Uang anda tidak cukup untuk melakukan transfer!");}
+    } else { System.out.println("Nomor rekening tidak terdaftar/salah!"); }
+}catch (Exception e){System.out.println("Error: "+e.getMessage());}
     }
     
     void TarikTunai(){
@@ -45,9 +46,15 @@ public class transaksi extends user{
         Class.forName("org.sqlite.JDBC");
     Connection k = DriverManager.getConnection("jdbc:sqlite:D:/Programming/OOP ATM/atm.db");
     Statement stat = k.createStatement();
-    stat.executeUpdate("update rekening set saldo_tabungan=saldo_tabungan-"+jumlah+" where no_rek="+getNo_rek()+";");
-    System.out.println("");
-    }catch (Exception e){}
+    ResultSet set = stat.executeQuery("select saldo_tabungan from rekening where no_rek='"+getNo_rek()+"';");
+    while(set.next()){
+    saldo_tabungan = set.getFloat("saldo_tabungan");
+    if (jumlah<=saldo_tabungan){
+    stat.executeUpdate("update rekening set saldo_tabungan=saldo_tabungan-"+jumlah+" where no_rek='"+getNo_rek()+"';");
+    stat.executeUpdate("insert into transaksi values('"+getNo_rek()+"', 'Tarik Tunai', date('now'), "+jumlah+",'"+getNo_rek()+"');");
+    } else {System.out.println("Saldo anda tidak mencukupi untuk penarikan tunai!");}
+    }
+    }catch (Exception e){System.out.println("Error: "+e.getMessage());}
     }
     
     void addDeposito(){
@@ -58,7 +65,8 @@ public class transaksi extends user{
     Connection k = DriverManager.getConnection("jdbc:sqlite:D:/Programming/OOP ATM/atm.db");
     Statement stat = k.createStatement();
     stat.executeUpdate("update rekening set saldo_deposit=saldo_deposit+"+jumlah+" where no_rek='"+getNo_rek()+"';");
-    }catch (Exception e){}
+    stat.executeUpdate("insert into transaksi values('"+getNo_rek()+"', 'Setor Deposit', date('now'), "+jumlah+",'"+getNo_rek()+"');");
+    }catch (Exception e){System.out.println("Error: "+e.getMessage());}
     }
     
     void addTabungan(){
@@ -69,6 +77,7 @@ public class transaksi extends user{
     Connection k = DriverManager.getConnection("jdbc:sqlite:D:/Programming/OOP ATM/atm.db");
     Statement stat = k.createStatement();
     stat.executeUpdate("update rekening set saldo_tabungan=saldo_tabungan+"+jumlah+" where no_rek='"+getNo_rek()+"';");
-    }catch (Exception e){}
+    stat.executeUpdate("insert into transaksi values('"+getNo_rek()+"', 'Setor Tabungan', date('now'), "+jumlah+",'"+getNo_rek()+"');");
+    }catch (Exception e){System.out.println("Error: "+e.getMessage());}
     }
 }
