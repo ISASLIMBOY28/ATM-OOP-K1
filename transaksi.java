@@ -8,6 +8,7 @@ public class transaksi extends user{
     
     void TransferUang(){
        try{ 
+        System.out.println("Minimal transfer sebesar Rp. 10,000");
         System.out.print("Ketik Nomor Rekening Tujuan : ");
         no_rek_tujuan = sc.next();
         System.out.println("=======================================================");
@@ -27,14 +28,14 @@ public class transaksi extends user{
         while(set.next()){
             saldo_tabungan=set.getFloat("saldo_tabungan");
         }
-        if(jumlah <= saldo_tabungan){
+        if(jumlah <= saldo_tabungan && jumlah>=10000){
         System.out.println("=======================================================");
         stat.executeUpdate("update rekening set saldo_tabungan=saldo_tabungan-"+jumlah+" where no_rek='"+getNo_rek()+"';");
         stat.executeUpdate("update rekening set saldo_tabungan=saldo_tabungan+"+jumlah+" where no_rek='"+no_rek_tujuan+"';");
         stat.executeUpdate("insert into transaksi values('"+getNo_rek()+"', 'Transfer Uang', date('now'), "+jumlah+",'"+no_rek_tujuan+"');");
         System.out.println("Uang sebesar Rp. "+String.format("%,.2f",jumlah));
         System.out.println("Telah dikirimkan ke "+no_rek_tujuan);
-        } else{System.out.println("Uang anda tidak cukup untuk melakukan transfer!");}
+        } else{System.out.println("Uang anda tidak cukup untuk melakukan transfer/Transfer kurang dari Rp. 10,000!");}
     } else { System.out.println("Nomor rekening tidak terdaftar/salah!"); }
 }catch (Exception e){System.out.println("Error: "+e.getMessage());}
     }
@@ -65,9 +66,16 @@ public class transaksi extends user{
         Class.forName("org.sqlite.JDBC");
     Connection k = DriverManager.getConnection("jdbc:sqlite:D:/Programming/OOP ATM/atm.db");
     Statement stat = k.createStatement();
+        if(jumlah>=5000000){
+    jumlah=jumlah+(jumlah*0.1f);
     stat.executeUpdate("update rekening set saldo_deposit=saldo_deposit+"+jumlah+" where no_rek='"+getNo_rek()+"';");
     stat.executeUpdate("insert into transaksi values('"+getNo_rek()+"', 'Setor Deposit', date('now'), "+jumlah+",'"+getNo_rek()+"');");
-    }catch (Exception e){System.out.println("Error: "+e.getMessage());}
+} else{
+    stat.executeUpdate("update rekening set saldo_deposit=saldo_deposit+"+jumlah+" where no_rek='"+getNo_rek()+"';");
+    stat.executeUpdate("insert into transaksi values('"+getNo_rek()+"', 'Setor Deposit', date('now'), "+jumlah+",'"+getNo_rek()+"');");
+}
+    System.out.println("Anda memasukkan deposit sejumlah Rp. "+jumlah);
+} catch (Exception e){System.out.println("Error: "+e.getMessage());}
     }
     
     void addTabungan(){
