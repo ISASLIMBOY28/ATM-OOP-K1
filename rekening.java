@@ -3,20 +3,28 @@ import java.sql.*;
 import java.io.IOException;
 public class rekening extends user{
     private float saldo_tabungan, saldo_deposit;
+    private String tgl_awal, tgl_akhir, tgladb, tglbdb;
     
     public void getMutasi(){
     try{
+        Scanner sc = new Scanner(System.in);
+        System.out.println("------------------------------------------------------");
+        System.out.println("Tanggal dengan ketikan YYYY-MM-DD");
+        System.out.print("Tanggal Transaksi Dari   : ");
+        String tgl_awal=sc.next();
+        System.out.print("Tanggal Transaksi Sampai : ");
+        String tgl_akhir=sc.next();
         System.out.println("------------------------------------------------------");
         Class.forName("org.sqlite.JDBC");
     Connection k = DriverManager.getConnection("jdbc:sqlite:D:/Programming/OOP ATM/atm.db");
     Statement stat = k.createStatement();
-    ResultSet set = stat.executeQuery("select * from transaksi where no_rek='"+getNo_rek()+"';");
+    ResultSet set = stat.executeQuery("select * from transaksi where no_rek='"+getNo_rek()+"' and tanggal between '"+tgl_awal+"' and '"+tgl_akhir+"';");
     while (set.next()){
         System.out.println("Tanggal       : "+set.getString("tanggal"));
         System.out.println("Jenis         : "+set.getString("jenis"));
         System.out.println("Jumlah        : Rp. "+String.format("%,.2f",set.getFloat("jumlah")));
-        System.out.println("Rek Tujuan    : "+set.getString("no_rek_tujuan"));
-        System.out.println("------------------------------------------------------");
+        System.out.println("No. Rekening  : "+set.getString("no_rek_tujuan"));
+        System.out.println("------------------------------------------------------");    
     }
 }catch (Exception e){System.out.println("Error: "+e.getMessage());}
 }

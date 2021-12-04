@@ -25,12 +25,10 @@ public class user implements bank{
     ResultSet set = stat.executeQuery("select username from user where username='"+getUsername()+"';");
     while (set.next()){
     usernamedb=set.getString("username");
-    System.out.println(usernamedb);
     }
     stat.executeQuery("select id_ktp from user where id_ktp='"+getId_ktp()+"';");
     while (set.next()){
     ktpdb=set.getString("id_ktp");
-    System.out.println(ktpdb);
     }
     if(getUsername().equals(usernamedb) || getId_ktp().equals(ktpdb)){
     System.out.println("Username/ID KTP Sudah terpakai!");
