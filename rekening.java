@@ -3,7 +3,7 @@ import java.sql.*;
 import java.io.IOException;
 public class rekening extends user{
     private float saldo_tabungan, saldo_deposit;
-    private String tgl_awal, tgl_akhir, tgladb, tglbdb;
+    private String tgl_awal, tgl_akhir;
     
     public void getMutasi(){
     try{
@@ -11,12 +11,12 @@ public class rekening extends user{
         System.out.println("------------------------------------------------------");
         System.out.println("Tanggal dengan ketikan YYYY-MM-DD");
         System.out.print("Tanggal Transaksi Dari   : ");
-        String tgl_awal=sc.next();
+        tgl_awal=sc.next();
         System.out.print("Tanggal Transaksi Sampai : ");
-        String tgl_akhir=sc.next();
+        tgl_akhir=sc.next();
         System.out.println("------------------------------------------------------");
         Class.forName("org.sqlite.JDBC");
-    Connection k = DriverManager.getConnection("jdbc:sqlite:D:/Programming/OOP ATM/atm.db");
+    Connection k = DriverManager.getConnection("jdbc:sqlite:D:/OOP ATM/atm.db");
     Statement stat = k.createStatement();
     ResultSet set = stat.executeQuery("select * from transaksi where no_rek='"+getNo_rek()+"' and tanggal between '"+tgl_awal+"' and '"+tgl_akhir+"';");
     while (set.next()){
@@ -32,7 +32,7 @@ public class rekening extends user{
     public void getSaldo(){
         try{
         Class.forName("org.sqlite.JDBC");
-    Connection k = DriverManager.getConnection("jdbc:sqlite:D:/Programming/OOP ATM/atm.db");
+    Connection k = DriverManager.getConnection("jdbc:sqlite:D:/OOP ATM/atm.db");
     Statement stat = k.createStatement();
     ResultSet set = stat.executeQuery("select no_rek, saldo_tabungan, saldo_deposit from rekening where username='"+getUsername()+"';");
     System.out.println("------------------------------------------------------");
@@ -48,7 +48,7 @@ public class rekening extends user{
     public void getSaldoTabungan(){
     try{
         Class.forName("org.sqlite.JDBC");
-    Connection k = DriverManager.getConnection("jdbc:sqlite:D:/Programming/OOP ATM/atm.db");
+    Connection k = DriverManager.getConnection("jdbc:sqlite:D:/OOP ATM/atm.db");
     Statement stat = k.createStatement();
     ResultSet set = stat.executeQuery("select saldo_tabungan from rekening where username='"+getUsername()+"';");
     while (set.next()){
@@ -61,12 +61,12 @@ public class rekening extends user{
     public float getSaldoDeposit(){
     try{
         Class.forName("org.sqlite.JDBC");
-    Connection k = DriverManager.getConnection("jdbc:sqlite:D:/Programming/OOP ATM/atm.db");
+    Connection k = DriverManager.getConnection("jdbc:sqlite:D:/OOP ATM/atm.db");
     Statement stat = k.createStatement();
     ResultSet set = stat.executeQuery("select saldo_deposit from rekening where username='"+getUsername()+"';");
     while (set.next()){
         saldo_deposit=set.getFloat("saldo_deposit");
-        System.out.println("Saldo Tabungan anda berjumlah Rp. "+String.format("%,.2f",saldo_deposit));
+        System.out.println("Saldo Deposito anda berjumlah Rp. "+String.format("%,.2f",saldo_deposit));
     }
 }catch (Exception e){System.out.println("Error: "+e.getMessage());}
 return saldo_deposit;

@@ -20,7 +20,7 @@ public class user implements bank{
    public void adduser(){
               try{
        Class.forName("org.sqlite.JDBC");
-    Connection k = DriverManager.getConnection("jdbc:sqlite:D:/Programming/OOP ATM/atm.db");
+    Connection k = DriverManager.getConnection("jdbc:sqlite:D:/OOP ATM/atm.db");
     Statement stat = k.createStatement();
     ResultSet set = stat.executeQuery("select username from user where username='"+getUsername()+"';");
     while (set.next()){
@@ -37,6 +37,7 @@ public class user implements bank{
     stat.executeUpdate("insert into rekening values('"+getUsername()+"',"+getNo_rek()+",0,0)");
     System.out.println(getNamadepan()+", anda sudah terdaftar di Bank OOP Memoria");
     System.out.println("Akun anda bernomor rekening "+getNo_rek());
+    System.out.println("=======================================================");
     }
 } catch (Exception e){}    
    }

@@ -34,7 +34,7 @@ public class ATM{
     System.out.print("Pin : ");
     String pin=sc.next();
     Class.forName("org.sqlite.JDBC");
-    Connection k = DriverManager.getConnection("jdbc:sqlite:D:/Programming/OOP ATM/atm.db");
+    Connection k = DriverManager.getConnection("jdbc:sqlite:D:/OOP ATM/atm.db");
     Statement stat = k.createStatement();
     ResultSet set = stat.executeQuery("select * from user where username='"+username+"' and pin='"+pin+"';");
      while (set.next()){
